@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './images/logo.svg';
+import './styles/App.css';
+import AutoCompleteField from './auto-complete-field';
+import SearchResults from './search-results';
 
 class App extends Component {
   render() {
@@ -8,8 +10,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <AutoCompleteField></AutoCompleteField>
         </header>
+          <SearchResults></SearchResults>
         <main>
         </main>
       </div>

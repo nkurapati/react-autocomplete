@@ -4,8 +4,10 @@ import './styles/auto-complete-field.css';
 
 export default class AutoCompleteField extends Component {
     throttlingTimeout = null;
+    minimumCharsRequired = 0;
     constructor(props) {
         super(props);
+        this.minimumCharsRequired = parseInt(this.props.minChars);
         this.state = {
             searchText: '',
             suggestions: [],
@@ -14,12 +16,12 @@ export default class AutoCompleteField extends Component {
     }
 
     onFocus(e) {
-        this.getSuggestions(e);
+        this.getSuggestions();
     }
 
     onFocusOut(e) {
         //On suggestion select is losting, so adding set timeout
-        setTimeout(this.updateSuggestions.bind(this), 200);
+        setTimeout(this.emptySuggestions.bind(this), 200);
     }
 
     onKeyDown(e) {
@@ -47,31 +49,35 @@ export default class AutoCompleteField extends Component {
     onChange(e) {
         var value = this.refs.search.value;
         this.setState({searchText: value});
-        this.getSuggestions();
+        this.getSuggestions(value);
     }
 
     onSubmit(e) {
         e.preventDefault();
-        this.updateSuggestions();
+        this.emptySuggestions();
         this.showResutls();
     }
 
-    updateSuggestions(suggestions = []) {
+    emptySuggestions(suggestions = []) {
         this.setState({
             suggestions: suggestions,
             selectedIndex: -1
         });
     }
 
-    getSuggestions(e) {
-        var value = this.refs.search.value;
-        if(value) {
-            this.props.getSuggestions(value)
-            .then(response => {
-                this.updateSuggestions(response);
-            })
+    getSuggestions(value) {
+        clearTimeout(this.throttlingTimeout);
+        value = value || this.state.searchText;
+        if(value && value.length >= this.minimumCharsRequired) {
+            //Making ajax request when user stops typing 
+            this.throttlingTimeout = setTimeout(()=>{
+                this.props.getSuggestions(value)
+                .then(response => {
+                    this.emptySuggestions(response);
+                })
+            }, 500);
         } else {
-            this.updateSuggestions();
+            this.emptySuggestions();
         }
     }
 
@@ -79,11 +85,13 @@ export default class AutoCompleteField extends Component {
         this.setState({
             searchText: value
         });
-        this.updateSuggestions();
+        this.emptySuggestions();
+        this.showResutls(value);
     }
 
-    showResutls(e) {
-        var value = this.refs.search.value;
+    showResutls(value) {
+        clearTimeout(this.throttlingTimeout);
+        value = value || this.state.searchText;
         this.props.showResults(value);
     }
 

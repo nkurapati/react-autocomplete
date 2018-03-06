@@ -32,7 +32,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <div className="App-logo-wrpr"><img src={logo} className="App-logo" alt="logo" /></div>
-          <AutoCompleteField getSuggestions={this.getSuggestions.bind(this)} showResults={this.showResults.bind(this)}></AutoCompleteField>
+          <AutoCompleteField minChars="3" getSuggestions={this.getSuggestions.bind(this)} showResults={this.showResults.bind(this)}></AutoCompleteField>
         </header>
           <SearchResults updateCallback={this.updateCallback.bind(this)}></SearchResults>
         <main>

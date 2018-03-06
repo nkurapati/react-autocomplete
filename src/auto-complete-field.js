@@ -52,7 +52,8 @@ export default class AutoCompleteField extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        //Need to get Resutls
+        this.updateSuggestions();
+        this.showResutls();
     }
 
     updateSuggestions(suggestions = []) {
@@ -79,6 +80,11 @@ export default class AutoCompleteField extends Component {
             searchText: value
         });
         this.updateSuggestions();
+    }
+
+    showResutls(e) {
+        var value = this.refs.search.value;
+        this.props.showResults(value);
     }
 
     render() {

@@ -14,14 +14,27 @@ class App extends Component {
     });
   }
 
+  updateCallback(callback) {
+    this.updateResults = callback;
+  }
+
+  showResults(key) {
+    return SuggestionsService.getDataFromGoogle(key)
+    .then(response => {
+      if(typeof this.updateResults == 'function') {
+        this.updateResults(response);
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <div className="App-logo-wrpr"><img src={logo} className="App-logo" alt="logo" /></div>
-          <AutoCompleteField getSuggestions={this.getSuggestions.bind(this)}></AutoCompleteField>
+          <AutoCompleteField getSuggestions={this.getSuggestions.bind(this)} showResults={this.showResults.bind(this)}></AutoCompleteField>
         </header>
-          <SearchResults></SearchResults>
+          <SearchResults updateCallback={this.updateCallback.bind(this)}></SearchResults>
         <main>
         </main>
       </div>

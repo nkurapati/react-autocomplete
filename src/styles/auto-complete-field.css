@@ -1,7 +1,7 @@
 .acf {
     position: relative;
     color: #333;
-    width: 300px;
+    width: 500px;
     margin: 0 auto;
     padding-top: 20px;
 }
@@ -9,9 +9,9 @@
     border: 1px solid #343434;
 }
 .sfield {
-    width: 264px;
-    height: 34px;
-    font-size: 16px;
+    width: 454px;
+    height: 44px;
+    font-size: 18px;
     padding: 8px 4px;
     margin: 0;
     outline: 0;
@@ -19,8 +19,8 @@
     vertical-align: top;
 }
 .sicon {
-    height: 34px;
-    width: 34px;
+    height: 44px;
+    width: 44px;
     padding: 0px;
     border: none;
     background-color: #fff;
@@ -28,4 +28,33 @@
 }
 .sicon:focus {
     outline: none;
+}
+
+.suggestions {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    top: 63px;
+    left: 0;
+    padding: 0;
+    margin: 1px 0 0 0;
+    border: 1px solid #343434;
+    border-top: none;
+    box-sizing: border-box;
+}
+
+.suggestions .suggestion {
+    list-style: none;
+    padding: 4px;
+    font-size: 16px;
+}
+
+.suggestions .suggestion:hover {
+    background-color: #d3d3d3;
+    font-weight: bold;
+}
+
+.suggestion.active {
+    background-color: #61DAFB;
+    font-weight: bold;
 }

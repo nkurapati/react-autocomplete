@@ -1,4 +1,6 @@
-#React AutoComplete Component
+# React AutoComplete Component
+
+This component shows suggestions as google search while you are typing for something. Currently its using Google custom search api, we can integrate any api by passing callback function.
 
 ## Usage
 
@@ -6,17 +8,17 @@
 
 **`<AutoCompleteField minChars="3" getSuggestions={callBackFunction1} showResults={callBackFunction2}></AutoCompleteField>`**
 
-#### Config
-* **`minChars`**: Default value is 0, This will restrict ajax request untill user enters minimu characters
-* **`getSuggestions`**: This is a callback funtion to get autocomplete suggetions. Integrate your api in this function. Ex: ['Lorem', 'Scott', 'Auto']
-* **`showResults`**: This is a callback function to trigger results request when user selects/submits the search test. Integrate your search api here and send data to search component
+* Suggestions can update by passing callback function to **`getSuggestions`** property. Compenent expects a Promeise to return from callback function. The response should be array of strings as ['Lorem', 'Scott', 'Auto']
 
-### Search Results Component:
+* We can set minimu required characters to make a api call by using **`minChars`**. Component will triggers api call to get auto suggestions once the search text is more than or equal minimum characters. It also handling **throttling**, the dafault value for throttling is 500ms.
 
-**`<SearchResults updateCallback={updateCallback}></SearchResults>`**
+* On submit can be handle using **`showResults`**.
 
-#### Config
-* **`updateCallback`**: This is a callback funtion, which will get another callback function as argument from results component, Results can be passed to component using callback from `showResults` function.
+## Features
+* Online public API integration
+* Keyboard navigation
+* Throttling
+* Minimum characters required functionality
 
 ## Run Application
 
@@ -25,4 +27,4 @@
 * Run **`npm start`** to start application
 * Run **`npm test`** to test unit test cases
 
-To read more, go to [Create React App](https://github.com/facebookincubator/create-react-app).
+To create React app,  go to [Create React App](https://github.com/facebookincubator/create-react-app).

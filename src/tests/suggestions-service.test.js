@@ -1,9 +1,14 @@
+import SuggestionsService from './../services/suggestions-service';
 describe('Suggestions Servie ', () => {
     it('Get Suggetions', () => {
-        //Test get suggetions api
+        return SuggestionsService.getSuggestions('AutoComplete').then((response => {
+            expect(response.length).toBeGreaterThan(0);
+        }))
     });
 
     it('Get Results', () => {
-        //Test get suggetions api
+        return SuggestionsService.getDataFromGoogle('AutoComplete').then((response => {
+            expect(response.length).toBeGreaterThan(0);
+        }))
     });
 })

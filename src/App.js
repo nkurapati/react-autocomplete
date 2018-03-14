@@ -7,11 +7,7 @@ import SuggestionsService from './services/suggestions-service';
 
 class App extends Component {
   getSuggestions(key) {
-    return SuggestionsService.getDataFromGoogle(key).then(response => {
-      return response.map(item => {
-        return item.title.split('-')[0];
-      })
-    });
+    return SuggestionsService.getSuggestions(key);
   }
 
   updateCallback(callback) {
@@ -34,8 +30,8 @@ class App extends Component {
           <div className="App-logo-wrpr"><img src={logo} className="App-logo" alt="logo" /></div>
           <AutoCompleteField minChars="3" getSuggestions={this.getSuggestions.bind(this)} showResults={this.showResults.bind(this)}></AutoCompleteField>
         </header>
-        <SearchResults updateCallback={this.updateCallback.bind(this)}></SearchResults>
         <main>
+          <SearchResults updateCallback={this.updateCallback.bind(this)}></SearchResults>
         </main>
       </div>
     );

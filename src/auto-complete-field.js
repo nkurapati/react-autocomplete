@@ -7,7 +7,7 @@ export default class AutoCompleteField extends Component {
     minimumCharsRequired = 0;
     constructor(props) {
         super(props);
-        this.minimumCharsRequired = parseInt(this.props.minChars);
+        this.minimumCharsRequired = parseInt(this.props.minChars || 0);
         this.state = {
             searchText: '',
             suggestions: [],
@@ -21,7 +21,7 @@ export default class AutoCompleteField extends Component {
 
     onFocusOut(e) {
         //On suggestion select is losting, so adding set timeout
-        setTimeout(this.emptySuggestions.bind(this), 200);
+        setTimeout(this.updateSuggestions.bind(this), 200);
     }
 
     onKeyDown(e) {
@@ -54,11 +54,11 @@ export default class AutoCompleteField extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.emptySuggestions();
+        this.updateSuggestions();
         this.showResutls();
     }
 
-    emptySuggestions(suggestions = []) {
+    updateSuggestions(suggestions = []) {
         this.setState({
             suggestions: suggestions,
             selectedIndex: -1
@@ -73,11 +73,11 @@ export default class AutoCompleteField extends Component {
             this.throttlingTimeout = setTimeout(()=>{
                 this.props.getSuggestions(value)
                 .then(response => {
-                    this.emptySuggestions(response);
+                    this.updateSuggestions(response);
                 })
             }, 500);
         } else {
-            this.emptySuggestions();
+            this.updateSuggestions();
         }
     }
 
@@ -85,7 +85,7 @@ export default class AutoCompleteField extends Component {
         this.setState({
             searchText: value
         });
-        this.emptySuggestions();
+        this.updateSuggestions();
         this.showResutls(value);
     }
 

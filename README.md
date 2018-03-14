@@ -4,9 +4,11 @@ This component shows suggestions as google search while you are typing for somet
 
 ## Usage
 
-### AutoComplete Component:
-
-**`<AutoCompleteField minChars="3" getSuggestions={callBackFunction1} showResults={callBackFunction2}></AutoCompleteField>`**
+>**`<AutoCompleteField 
+    minChars="3" 
+    getSuggestions={callBackFunction1} 
+    showResults={callBackFunction2}>
+</AutoCompleteField>`**
 
 * Suggestions can update by passing callback function to **`getSuggestions`** property. Compenent expects a Promeise to return from callback function. The response should be array of strings as ['Lorem', 'Scott', 'Auto']
 
